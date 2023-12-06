@@ -132,7 +132,7 @@ var Renderer = L.Canvas.extend({
             ctx.restore();
         }
         var gradient = ctx.createRadialGradient(p.x, p.y / s, 0, p.x, p.y / s, r);//ctx.createLinearGradient(0, 0, 1200, 600);
-        // 线性渐变
+        // linear gradient
         gradient.addColorStop(0, 'rgb(0,0,255)');
         gradient.addColorStop(1, 'rgb(255,255,0)');
         layer.options.fillColor = gradient
@@ -201,7 +201,7 @@ var Renderer = L.Canvas.extend({
                 + offsetY);
         }
     },
-    _drawBubble: function (ctx, x, y, w, h) { //左上角点(x,y) 整体宽高(w,h)
+    _drawBubble: function (ctx, x, y, w, h) { //Upper left corner point(x,y) Overall width and height(w,h)
         ctx.fillStyle = "rgba(212,212,212,.8)";
         ctx.beginPath();
         ctx.moveTo(x, y);
@@ -289,7 +289,7 @@ var Renderer = L.Canvas.extend({
     },
 
 });
-/**定义扇形 */
+/**Defining Sectors */
 var Sector = L.Circle.extend({
     options: {
         renderer: new Renderer()
@@ -314,7 +314,7 @@ var Sector = L.Circle.extend({
         L.Circle.prototype.setStyle.call(this, options);
     }
 })
-/**定义雷达图层 */
+/**Defining Radar Layers */
 L.Radar = L.LayerGroup.extend({
     options: {
         online: {
@@ -404,7 +404,7 @@ L.Radar = L.LayerGroup.extend({
         if (this.deviceObj.angle == 0) {
             return null
         }
-        //通用版本这么算
+        //Here's how the generic version works
         var startAngle = this.deviceObj.direction - this.deviceObj.angle / 2
         var endAngle = this.deviceObj.direction + this.deviceObj.angle / 2
         if (!style) {
@@ -421,11 +421,11 @@ L.Radar = L.LayerGroup.extend({
     initCenter() {
         if (this.deviceObj.location) {
             var latlngstr = this.deviceObj.location.split(" ")
-            if (parseFloat(latlngstr[0]) > 0 && parseFloat(latlngstr[0]) < 90 && parseFloat(latlngstr[1]) > 0 && parseFloat(latlngstr[1]) < 180) {
+            if (parseFloat(latlngstr[0]) > -90 && parseFloat(latlngstr[0]) < 90 && parseFloat(latlngstr[1]) > -180 && parseFloat(latlngstr[1]) < 180) {
                 this.center = [parseFloat(latlngstr[0]), parseFloat(latlngstr[1])]
             } else {
                 this.center = null
-                console.error("坐标错误")
+                console.error("Invalid coordinates")
                 return
             }
         }
