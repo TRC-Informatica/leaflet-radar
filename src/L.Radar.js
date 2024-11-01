@@ -138,7 +138,7 @@ var Renderer = L.Canvas.extend({
         layer.options.fillColor = gradient
         this._fillStroke(ctx, layer);
     },
-   
+
     _text: function (ctx, layer) {
 
         if (layer.options.text != undefined && this._map.getZoom() > 14) {
@@ -421,7 +421,7 @@ L.Radar = L.LayerGroup.extend({
     initCenter() {
         if (this.deviceObj.location) {
             var latlngstr = this.deviceObj.location.split(" ")
-            if (parseFloat(latlngstr[0]) > -90 && parseFloat(latlngstr[0]) < 90 && parseFloat(latlngstr[1]) > -180 && parseFloat(latlngstr[1]) < 180) {
+            if (parseFloat(latlngstr[0]) >= -90 && parseFloat(latlngstr[0]) <= 90 && parseFloat(latlngstr[1]) >= -180 && parseFloat(latlngstr[1]) <= 180) {
                 this.center = [parseFloat(latlngstr[0]), parseFloat(latlngstr[1])]
             } else {
                 this.center = null
